@@ -2,7 +2,7 @@
 
 REST-сервис, который исправляет опечатки в тексте с помощью [Яндекс.Спеллера](https://yandex.ru/dev/speller/). Пользователь создаёт задачу с текстом и языком, а фоновый планировщик проверяет текст и сохраняет исправленный вариант.
 
-**Стек:** Java 17, Spring Boot 3, Gradle, PostgreSQL, Flyway, Docker / docker-compose, JUnit 5, Mockito.
+**Стек:** Java 17, Spring Boot 3, Gradle, PostgreSQL, Flyway, Docker / docker-compose, JUnit 5, Mockito, Testcontainers.
 
 ## Как это работает
 
@@ -33,6 +33,8 @@ docker compose up -d db
 ```bash
 ./gradlew test
 ```
+
+Unit-тесты не требуют окружения. Интеграционный тест `TaskFlowIntegrationTest` поднимает PostgreSQL в Docker через Testcontainers и проверяет полный цикл: создание задачи, обработку планировщиком и получение результата. Яндекс.Спеллер в нём подменён моком. Для этого теста нужен запущенный Docker.
 
 ### Настройки
 
